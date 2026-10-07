@@ -1,4 +1,5 @@
-# Job Tracker – Student Internship Directory
+# Job Tracker – Student Internship Directory 
+https://irfan0503.github.io/job-tracker/
 
 A beginner-friendly React and Vite mini project for exploring sample internships and tracking application progress. Listings are sample records, not verified live vacancies. Application data is stored only in this browser's local storage.
 
