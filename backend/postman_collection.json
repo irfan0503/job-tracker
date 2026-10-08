@@ -1,0 +1,80 @@
+{
+  "info": {
+    "name": "Student Internship Job Tracker API",
+    "description": "Local Postman requests for the job tracker backend. Seeded records are sample/demo data, not verified vacancies.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:5000" },
+    { "key": "jobId", "value": "replace-with-job-id" },
+    { "key": "applicationId", "value": "replace-with-application-id" }
+  ],
+  "item": [
+    {
+      "name": "Jobs",
+      "item": [
+        { "name": "Get all jobs", "request": { "method": "GET", "url": "{{baseUrl}}/api/jobs" } },
+        { "name": "Get one job", "request": { "method": "GET", "url": "{{baseUrl}}/api/jobs/{{jobId}}" } },
+        { "name": "Search jobs", "request": { "method": "GET", "url": "{{baseUrl}}/api/jobs?search=IoT" } },
+        { "name": "Filter jobs by category", "request": { "method": "GET", "url": "{{baseUrl}}/api/jobs?category=IoT" } },
+        { "name": "Filter jobs by location", "request": { "method": "GET", "url": "{{baseUrl}}/api/jobs?location=Chennai" } },
+        { "name": "Combined job filters", "request": { "method": "GET", "url": "{{baseUrl}}/api/jobs?search=intern&category=IoT&location=Chennai" } },
+        {
+          "name": "Create job",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"jobTitle\": \"IoT Intern\",\n  \"company\": \"Demo Technologies\",\n  \"location\": \"Chennai\",\n  \"category\": \"IoT\",\n  \"jobType\": \"On-site\",\n  \"applyLink\": \"https://example.com\",\n  \"description\": \"Sample IoT internship for demonstration.\"\n}" },
+            "url": "{{baseUrl}}/api/jobs"
+          }
+        },
+        {
+          "name": "Update job",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"jobTitle\": \"Updated IoT Intern\",\n  \"company\": \"Demo Technologies\",\n  \"location\": \"Chennai\",\n  \"category\": \"IoT\",\n  \"jobType\": \"Hybrid\"\n}" },
+            "url": "{{baseUrl}}/api/jobs/{{jobId}}"
+          }
+        },
+        { "name": "Delete job", "request": { "method": "DELETE", "url": "{{baseUrl}}/api/jobs/{{jobId}}" } },
+        { "name": "Job count", "request": { "method": "GET", "url": "{{baseUrl}}/api/jobs/count" } }
+      ]
+    },
+    {
+      "name": "Applications",
+      "item": [
+        { "name": "Get all applications", "request": { "method": "GET", "url": "{{baseUrl}}/api/applications" } },
+        {
+          "name": "Create application",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"studentName\": \"Demo Student\",\n  \"email\": \"student@example.com\",\n  \"jobTitle\": \"IoT Intern\",\n  \"company\": \"Demo Technologies\",\n  \"applicationDate\": \"2026-10-08\",\n  \"status\": \"Applied\"\n}" },
+            "url": "{{baseUrl}}/api/applications"
+          }
+        },
+        { "name": "Filter applications by status", "request": { "method": "GET", "url": "{{baseUrl}}/api/applications?status=Applied" } },
+        { "name": "Get one application", "request": { "method": "GET", "url": "{{baseUrl}}/api/applications/{{applicationId}}" } },
+        {
+          "name": "Update application",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"status\": \"Interview\"\n}" },
+            "url": "{{baseUrl}}/api/applications/{{applicationId}}"
+          }
+        },
+        { "name": "Delete application", "request": { "method": "DELETE", "url": "{{baseUrl}}/api/applications/{{applicationId}}" } },
+        { "name": "Application count", "request": { "method": "GET", "url": "{{baseUrl}}/api/applications/count" } }
+      ]
+    },
+    {
+      "name": "Error checks",
+      "item": [
+        { "name": "Invalid job ID (expected 400)", "request": { "method": "GET", "url": "{{baseUrl}}/api/jobs/not-an-object-id" } },
+        { "name": "Unknown endpoint (expected 404)", "request": { "method": "GET", "url": "{{baseUrl}}/api/not-a-route" } }
+      ]
+    }
+  ]
+}
